@@ -23,14 +23,16 @@ import 'firebase/compat/firestore';
 
     const [user, setUser] = useState(null);
 
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setUser(user);
-        console.log(user);
-      } else {
-        setUser(null);
-      }
-    });
+    useEffect(() => {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          setUser(user);
+          console.log(user);
+        } else {
+          setUser(null);
+        }
+      });
+    }, []);
   
     const handleSignIn = async (e) => {
       e.preventDefault();
@@ -41,6 +43,10 @@ import 'firebase/compat/firestore';
       } catch (error) {
         setError(error.message);
       }
+    };
+
+    const handleSignOut = () => {
+      firebase.auth().signOut();
     };
   
     return (
@@ -59,6 +65,8 @@ import 'firebase/compat/firestore';
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Sign In</button>
+        <button onClick={handleSignOut}>Sign out</button>
+        
         {error && <p>{error}</p>}
       </form>
 
