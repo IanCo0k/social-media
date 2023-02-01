@@ -1,9 +1,12 @@
 import {useState, useEffect} from 'react';
 import firebase from './firebase';
+import { Navigate } from 'react-router-dom';
 import './SignIn.css';
 
 
   const SignIn = () => {
+
+    const [success, setSuccess] = useState(false);
 
     const handleSignIn = async (e) => {
       e.preventDefault();
@@ -12,13 +15,10 @@ import './SignIn.css';
       try {
         await firebase.auth().signInWithEmailAndPassword(email, password);
         console.log('successfully logged in')
+        setSuccess(true);
       } catch (error) {
         setError(error.message);
       }
-    };
-
-    const handleSignOut = () => {
-      firebase.auth().signOut();
     };
 
 
@@ -40,6 +40,10 @@ import './SignIn.css';
         }
       });
     }, []);
+
+    if(success){
+      return <Navigate replace to="/home" />
+    }
   
     return (
       <div className='container'>
@@ -57,7 +61,6 @@ import './SignIn.css';
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Sign In</button>
-        <button onClick={handleSignOut}>Sign out</button>
         
         {error && <p>{error}</p>}
       </form>
