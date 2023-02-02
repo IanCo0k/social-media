@@ -32,20 +32,21 @@ export default function Home() {
         .doc(user.uid)
         .get()
         .then((doc) => {
-          if (doc.data().first) {
-            firebase.firestore()
-              .collection("firstTime")
-              .doc(user.uid)
-              .set({ first: false }, { merge: true })
 
-              let tempBalance = getRandomInt();
+          if(!doc.exists){
+            firebase.firestore()
+                    .collection('firstTime')
+                    .doc(user.uid)
+                    .set({first: true})
+
+            let temp = getRandomInt();
 
             firebase.firestore()
                     .collection('userBalance')
                     .doc(user.uid)
-                    .set({balance: tempBalance})
-
-            setBalance(tempBalance);
+                    .set({balance: temp})
+            
+            setBalance(temp);
           } else{
             firebase.firestore()
                     .collection('userBalance')
