@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import firebase from '../firebase';
 import { Navigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRankingStar } from "@fortawesome/free-solid-svg-icons";
 import './Home.css';
 
 export default function Home() {
@@ -68,15 +70,20 @@ export default function Home() {
 
 
   if(signOut){
-    return <Navigate replate to='/'/>
+    return <Navigate replace to='/'/>
   }
 
   return (
 
     <div className="home-container">
       <div className="balance">
-        <h1>${balance}</h1>
+        <div>${balance}</div>
       </div>
+      <a href="/#/leaderboard">
+        <div className="leaderboard">
+          <FontAwesomeIcon icon={faRankingStar} />
+        </div>
+      </a>
       <div className="logo"><h1>Cookbook</h1></div>
       <div className="home-content">
         <h1>Hello, {name}</h1>

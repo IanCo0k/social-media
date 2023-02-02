@@ -28,7 +28,8 @@ function SignUp() {
 
 
   return (
-    <form onSubmit={handleSignUp}>
+    <div className="container">
+      <form onSubmit={handleSignUp}>
       <input
         type="email"
         value={email}
@@ -49,6 +50,7 @@ function SignUp() {
       />
       <button type="submit">Sign Up</button>
     </form>
+    </div>
   );
 }
 

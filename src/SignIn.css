@@ -10,10 +10,11 @@
 body{
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow: hidden;
     background: var(--bg);
     font-family: 'Outfit', sans-serif;
     color: var(--text);
+    box-sizing: border-box;
 }
 
 ::placeholder{
@@ -42,11 +43,6 @@ input{
     margin: 1em;
 }
 
-*{
-    box-sizing: border-box;
-    font-family: inherit;
-}
-
 .container{
     width: 100vw;
     min-height: 100vh;
@@ -55,9 +51,12 @@ input{
     justify-content: center;
     align-items: center;
     background: var(--bg);
+    overflow: hidden;
 }
 
 form{
     display: flex;
     flex-direction: column;
+    background: white;
+    border-radius: 1em;
 }
