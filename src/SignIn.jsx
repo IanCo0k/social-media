@@ -10,7 +10,6 @@ import './SignIn.css';
 
     const handleSignIn = async (e) => {
       e.preventDefault();
-  
       console.log('is this even working');
       try {
         await firebase.auth().signInWithEmailAndPassword(email, password);
@@ -29,14 +28,13 @@ import './SignIn.css';
 
     const [user, setUser] = useState(null);
 
+    
+
     useEffect(() => {
       console.log('page loaded')
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           setUser(user);
-          console.log(user);
-        } else {
-          setUser(null);
         }
       });
     }, []);
