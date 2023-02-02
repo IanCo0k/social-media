@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import firebase from '../firebase'
 import './SignUp.css';
 
 function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
+  const [success, setSuccess] = useState(false);
 
 
   const handleSignUp = async (event) => {
@@ -13,18 +14,18 @@ function SignUp() {
 
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then((user) => {
-            user.updateProfile({
-              displayName,
-            });
-          });
       console.log('successfully created');
+      setSuccess(true);
     } catch (error) {
       console.error(error);
     }
     setEmail('');
     setPassword('');
   };
+
+  if(success){
+    return <Navigate replace to="/" />
+  }
 
 
   return (
@@ -41,12 +42,6 @@ function SignUp() {
         value={password}
         onChange={(event) => setPassword(event.target.value)}
         placeholder="Password"
-      />
-      <input
-        type="text"
-        placeholder="Display Name"
-        value={displayName}
-        onChange={(event) => setDisplayName(event.target.value)}
       />
       <button type="submit">Sign Up</button>
     </form>

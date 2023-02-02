@@ -11,6 +11,7 @@ export default function Home() {
   const [name, setName] = useState('');
   const [balance, setBalance] = useState();
   const [user, setUser] = useState('');
+  const [noName, setNoName] = useState(false);
 
   const handleSignOut = () => {
     firebase.auth().signOut();
@@ -26,7 +27,11 @@ export default function Home() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
-        setName(user.displayName);
+        if(user.displayName == null){
+          setNoName(true);
+        } else{
+          setName(user.displayName)
+        }
       }
 
       firebase.firestore()
@@ -73,6 +78,20 @@ export default function Home() {
     return <Navigate replace to='/'/>
   }
 
+  const updateName = async (event) => {
+    event.preventDefault();
+
+    try {
+      user.updateProfile({
+        displayName: name
+      })
+      console.log('successfully created');
+      setNoName(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
 
     <div className="home-container">
@@ -87,6 +106,16 @@ export default function Home() {
       <div className="logo"><h1>Cookbook</h1></div>
       <div className="home-content">
         <h1>Hello, {name}</h1>
+
+        <form onSubmit={updateName} className={noName ? '' : 'hide'}>
+          <input
+            type="name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            placeholder="Name"
+          />
+          <button type='submit'>Submit</button>
+        </form>
         
         <button onClick={handleSignOut}>Sign Out</button>
       </div>
