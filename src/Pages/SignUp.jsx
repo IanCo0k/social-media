@@ -5,13 +5,19 @@ import './SignUp.css';
 function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [displayName, setDisplayName] = useState('');
 
 
   const handleSignUp = async (event) => {
     event.preventDefault();
 
     try {
-      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      await firebase.auth().createUserWithEmailAndPassword(email, password)
+          .then((user) => {
+            user.updateProfile({
+              displayName,
+            });
+          });
       console.log('successfully created');
     } catch (error) {
       console.error(error);
@@ -34,6 +40,12 @@ function SignUp() {
         value={password}
         onChange={(event) => setPassword(event.target.value)}
         placeholder="Password"
+      />
+      <input
+        type="text"
+        placeholder="Display Name"
+        value={displayName}
+        onChange={(event) => setDisplayName(event.target.value)}
       />
       <button type="submit">Sign Up</button>
     </form>

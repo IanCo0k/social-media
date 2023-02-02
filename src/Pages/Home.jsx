@@ -72,10 +72,17 @@ export default function Home() {
   }
 
   return (
-    <div>
-      <h1>Hello, {name}</h1>
-      <h1>You have a balance of: {balance}</h1>
-      <button onClick={handleSignOut}>Sign Out</button>
+
+    <div className="home-container">
+      <div className="balance">
+        <h1>${balance}</h1>
+      </div>
+      <div className="logo"><h1>Cookbook</h1></div>
+      <div className="home-content">
+        <h1>Hello, {name}</h1>
+        
+        <button onClick={handleSignOut}>Sign Out</button>
+      </div>
     </div>
   )
 }

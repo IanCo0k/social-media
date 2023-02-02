@@ -1,11 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;800&display=swap');
+
+:root{
+    --bg: #1B1F3B;
+    --bg2: #04724D;
+    --accent: #457EAC;
+    --text: #F4F4F9;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: var(--bg);
+    font-family: 'Outfit', sans-serif;
+    color: var(--text);
+}
+
+::placeholder{
+    color: inherit;
+}
+
+button{
+    padding: 1em;
+    border: none;
+    border-radius: 1em;
+    background: var(--accent);
+    margin: 1em;
+}
+
+a{
+    text-decoration: none;
+    color: var(--accent);
+}
+
+input{
+    padding: 1em;
+    border-radius: 1em;
+    border: none;
+    background: var(--bg2);
+    color: var(--text);
+    margin: 1em;
+}
+
+*{
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
 .container{
-    background: #fff;
     width: 100vw;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: var(--bg);
 }
 
 form{
