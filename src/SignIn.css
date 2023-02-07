@@ -10,11 +10,11 @@
 body{
     margin: 0;
     padding: 0;
-    overflow: hidden;
     background: var(--bg);
     font-family: 'Outfit', sans-serif;
     color: var(--text);
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 ::placeholder{

@@ -13,6 +13,8 @@ export default function Home() {
   const [user, setUser] = useState('');
   const [noName, setNoName] = useState(false);
 
+  const [lines, setLines] = useState([]);
+
   const handleSignOut = () => {
     firebase.auth().signOut();
     setSignOut(true);
@@ -22,7 +24,20 @@ export default function Home() {
     return Math.floor(Math.random() * (5000 - 5 + 1) + 5);
   }
 
+  async function getLines() {
+    const snapshot = await firebase.firestore().collection('Lines').get()
+    return Promise.resolve(snapshot.docs.map(doc => doc.data()));
+}
+
   useEffect(() => {
+
+    async function fetchLines() {
+      const lines = await getLines();
+      setLines(lines);
+      console.log(lines);
+    }
+
+    fetchLines();
 
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -36,28 +51,28 @@ export default function Home() {
 
       firebase.firestore()
         .collection("firstTime")
-        .doc(user.uid)
+        .doc(user.displayName)
         .get()
         .then((doc) => {
 
           if(!doc.exists){
             firebase.firestore()
                     .collection('firstTime')
-                    .doc(user.uid)
+                    .doc(user.displayName)
                     .set({first: true})
 
             let temp = getRandomInt();
 
             firebase.firestore()
                     .collection('userBalance')
-                    .doc(user.uid)
+                    .doc(user.displayName)
                     .set({balance: temp})
             
             setBalance(temp);
           } else{
             firebase.firestore()
                     .collection('userBalance')
-                    .doc(user.uid)
+                    .doc(user.displayName)
                     .get()
                     .then((doc) => {
                       setBalance(doc.data().balance);
